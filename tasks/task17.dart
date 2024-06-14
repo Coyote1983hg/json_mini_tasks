@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import '../domain/dog.dart';
+
 void main() {
   String json17 = """
 {
@@ -27,4 +31,23 @@ void main() {
 """;
 
   // Erstelle eine Instanz der Klasse Dog basierend auf dem JSON-String json17
+  // Decodează JSON-ul în Map<String, dynamic>
+  Map<String, dynamic> jsonMap = jsonDecode(json17);
+
+  // Extrage lista de câini din Map-ul JSON
+  List<dynamic> dogsList = jsonMap['rescueDogs'];
+
+  // Creează instanțe ale clasei Dog
+  List<Dog> dogs = dogsList.map((dogItem) {
+    return Dog(
+      name: dogItem['name'],
+      breed: dogItem['breed'],
+      age: dogItem['age'],
+    );
+  }).toList();
+
+  // Afișează fiecare câine
+  for (Dog dog in dogs) {
+    print(dog);
+  }
 }

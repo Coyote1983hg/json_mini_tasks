@@ -52,28 +52,16 @@ void main() {
 }
 """;
 
-  // Erstelle eine Instanz der Klasse News basierend auf dem JSON-String json8
-   // Decodează JSON-ul în Map<String, dynamic>
   Map<String, dynamic> jsonMap = jsonDecode(json8);
 
-  // Extrage lista de surse de știri din Map-ul JSON
   List<dynamic> newsOutletsList = jsonMap['newsOutlets'];
 
-  // Iterează prin lista de surse de știri și creează instanțe ale clasei News
-  List<News> allNews = [];
-  for (var newsOutlet in newsOutletsList) {
-    List<dynamic> latestNewsList = newsOutlet['latestNews'];
-    for (var newsItem in latestNewsList) {
-      allNews.add(News(
-        title: newsItem['title'],
-        source: newsItem['source'],
-      ));
-    }
-  }
+  List<News> allNews = (jsonDecode(json8)['newsOutlets'] as List)
+      .expand((outlet) => outlet['latestNews'])
+      .map((item) => News(title: item['title'], source: item['source']))
+      .toList();
 
-  // Afișează fiecare știre
   for (News n in allNews) {
     print(n);
   }
 }
-

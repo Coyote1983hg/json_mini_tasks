@@ -35,26 +35,15 @@ void main() {
   }
 }
 """;
+ Map<String, dynamic> jsonMap = jsonDecode(json12);
+  List<Movie> movies = (jsonMap['ratings']['movies'] as List)
+      .map((movieItem) => Movie(
+            title: movieItem['title'],
+            rating: movieItem['rating'].toDouble(),
+            year: movieItem['year'],
+          ))
+      .toList();
 
-  // Erstelle eine Instanz der Klasse Movie basierend auf dem JSON-String json12
-   // Decodează JSON-ul în Map<String, dynamic>
-  Map<String, dynamic> jsonMap = jsonDecode(json12);
+  movies.forEach(print);
 
-  // Extrage lista de filme din Map-ul JSON
-  Map<String, dynamic> ratingsMap = jsonMap['ratings'];
-  List<dynamic> moviesList = ratingsMap['movies'];
-
-  // Creează instanțe ale clasei Movie
-  List<Movie> movies = moviesList.map((movieItem) {
-    return Movie(
-      title: movieItem['title'],
-      rating: movieItem['rating'].toDouble(),
-      year: movieItem['year'],
-    );
-  }).toList();
-
-  // Afișează fiecare film
-  for (Movie m in movies) {
-    print(m);
-  }
 }

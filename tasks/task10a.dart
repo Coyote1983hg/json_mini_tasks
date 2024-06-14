@@ -32,22 +32,16 @@ void main() {
 """;
 
   // Erstelle eine Instanz der Klasse Movie basierend auf dem JSON-String json10
-  // Decodează JSON-ul în Map<String, dynamic>
-  Map<String, dynamic> jsonMap = jsonDecode(json10);
+  // Decode and create Movie objects in one line
+  List<Movie> movies = (jsonDecode(json10)['movies'] as List)
+      .map((item) => Movie(
+          title: item['title'],
+          year: item['year'],
+          rating: item['rating'].toDouble(),
+        ))
+      .toList();
 
-  // Extrage lista de filme din Map-ul JSON
-  List<dynamic> moviesList = jsonMap['movies'];
-
-  // Creează instanțe ale clasei Movie
-  List<Movie> movies = moviesList.map((movieItem) {
-    return Movie(
-      title: movieItem['title'],
-      rating: movieItem['rating'].toDouble(),
-      year: movieItem['year'],
-    );
-  }).toList();
-
-  // Afișează fiecare film
+  // Print each movie
   for (Movie m in movies) {
     print(m);
   }

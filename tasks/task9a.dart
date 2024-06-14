@@ -22,20 +22,12 @@ void main() {
   }
 ]
 """;
+// Decode JSON and create News objects in one line
+  List<News> newsList = (jsonDecode(json9) as List)
+      .map((item) => News(title: item['title'], source: item['source']))
+      .toList();
 
-  // Erstelle eine Instanz der Klasse News basierend auf dem JSON-String json9
-  // Decodează JSON-ul în List<dynamic>
-  List<dynamic> jsonList = jsonDecode(json9);
-
-  // Creează instanțe ale clasei News
-  List<News> newsList = jsonList.map((newsItem) {
-    return News(
-      title: newsItem['title'],
-      source: newsItem['source'],
-    );
-  }).toList();
-
-  // Afișează fiecare știre
+  // Print each news item
   for (News n in newsList) {
     print(n);
   }

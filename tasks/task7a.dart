@@ -24,24 +24,12 @@ void main() {
   ]
 }
 """;
+// One-liner for decoding and creating News objects
+  List<News> news = (jsonDecode(json7)['news'] as List)
+      .map((item) => News(title: item['title'], source: item['source']))
+      .toList();
 
-  // Erstelle eine Instanz der Klasse News basierend auf dem JSON-String json7
-  
-  // Decodează JSON-ul în Map<String, dynamic>
-  Map<String, dynamic> jsonMap = jsonDecode(json7);
-
-  // Extrage lista de știri din Map-ul JSON
-  List<dynamic> newsList = jsonMap['news'];
-
-  // Iterează prin lista de știri și creează instanțe ale clasei News
-  List<News> news = newsList.map((newsItem) {
-    return News(
-      title: newsItem['title'],
-      source: newsItem['source'],
-    );
-  }).toList();
-
-  // Afișează fiecare știre
+  // Print each news item
   for (News n in news) {
     print(n);
   }

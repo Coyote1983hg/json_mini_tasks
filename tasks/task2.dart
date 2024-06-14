@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import '../domain/user.dart';
+
 void main() {
   String json2 = """
 {
@@ -16,4 +20,10 @@ void main() {
 }
 """;
   // Erstelle eine Instanz der Klasse User basierend auf dem JSON-String json2
+  Map<String, dynamic> m = jsonDecode(json2);
+  User a =
+      User(gender: m["sex"], fullName: m["name"], city: m["location"]["city"]);
+  print(a.gender);
+  print(a.fullName);
+  print(a.city);
 }

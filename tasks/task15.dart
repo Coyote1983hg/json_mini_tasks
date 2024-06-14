@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import '../domain/ip.dart';
+
 void main() {
   String json15 = """
 {
@@ -35,4 +39,21 @@ void main() {
 """;
 
   // Erstelle eine Instanz der Klasse IP basierend auf dem JSON-String json15
+  // Decodează JSON-ul în Map<String, dynamic>
+  Map<String, dynamic> jsonMap = jsonDecode(json15);
+
+  // Extrage lista de jucători din Map-ul JSON
+  List<dynamic> playersList = jsonMap['players'];
+
+  // Creează instanțe ale clasei IP pentru fiecare jucător
+  List<IP> ipList = playersList.map((playerItem) {
+    Map<String, dynamic> ipAddressMap = playerItem['ip-address'];
+    return IP(ip: ipAddressMap['host']);
+  }).toList();
+
+  // Afișează adresele IP
+  for (IP ip in ipList) {
+    print(ip);
+  }
 }
+

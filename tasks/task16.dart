@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import '../domain/dog.dart';
+
 void main() {
   String json16 = """
 {
@@ -11,4 +15,15 @@ void main() {
 """;
 
   // Erstelle eine Instanz der Klasse Dog basierend auf dem JSON-String json16
+  // Decodează JSON-ul în Map<String, dynamic>
+  Map<String, dynamic> jsonMap = jsonDecode(json16);
+
+  // Creează o instanță a clasei Dog
+  Dog dog = Dog(
+    name: jsonMap['name'],
+    breed: jsonMap['breed'],
+    age: jsonMap['age'],
+  );
+
+  print(dog);
 }

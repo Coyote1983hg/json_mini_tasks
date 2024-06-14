@@ -63,14 +63,11 @@ void main() {
 """;
 
 // Erstelle eine Instanz der Klasse User basierend auf dem JSON-String json1
-  Map<String, dynamic> m = jsonDecode(json1);
+// Decode JSON and create User object with named constructor (assuming it exists)
+  Map<String, dynamic> jsonMap = jsonDecode(json1);
+  User user = User.fromJson(jsonMap);
 
-  // Creează o instanță a clasei User folosind factory constructor
-  User user = User(
-      gender: m["gender"],
-      fullName: m["name"]["first"],
-      city: m["location"]["city"]);
-  print(m["gender"]);
-  print(m["name"]["first"]);
- print( m["location"]["city"]);
+  print(user.gender);
+  print(user.fullName);
+  print(user.city);
 }

@@ -37,18 +37,13 @@ void main() {
 }
 """;
 
-  Map<String, dynamic> jsonMap = jsonDecode(json11);
-
-  List<dynamic> moviesList = jsonMap['movies'];
-
-  List<Movie> movies = moviesList.map((movieItem) {
-    Map<String, dynamic> detailsMap = movieItem['details'];
-    return Movie(
-      title: movieItem['title'],
-      rating: detailsMap['rating'].toDouble(),
-      year: detailsMap['year'],
-    );
-  }).toList();
+  List<Movie> movies = (jsonDecode(json11)['movies'] as List)
+      .map((movieItem) => Movie(
+            title: movieItem['title'],
+            year: movieItem['details']['year'],
+            rating: movieItem['details']['rating'].toDouble(),
+          ))
+      .toList();
 
   for (Movie m in movies) {
     print(m);

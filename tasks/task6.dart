@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import '../domain/btc_price.dart';
+
 void main() {
   String json6 = """
 {
@@ -23,4 +27,21 @@ void main() {
 """;
 
   // Erstelle eine Instanz der Klasse BtcPrice basierend auf dem JSON-String json6 (in Euro)
+   // Decodează JSON-ul în Map<String, dynamic>
+  Map<String, dynamic> jsonMap = jsonDecode(json6);
+
+  // Extrage datele pentru Bitcoin
+  List<dynamic> cryptoList = jsonMap['crypto'];
+  Map<String, dynamic> bitcoinMap = cryptoList.firstWhere((item) => item['chartName'] == 'Bitcoin');
+  Map<String, dynamic> btcPrMap = bitcoinMap['btcPr'];
+  String currency = btcPrMap['symbol'].replaceAll('&euro;', 'EUR');
+  String price = btcPrMap['rate'];
+
+  // Creează o instanță a clasei BtcPrice
+  BtcPrice btcPrice = BtcPrice(currency: currency, price: price);
+
+  // Afișează prețul Bitcoin în Euro
+  print(btcPrice);
 }
+
+

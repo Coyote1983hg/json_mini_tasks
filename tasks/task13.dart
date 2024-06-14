@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import '../domain/ip.dart';
+
 void main() {
   String json13 = """
 {
@@ -7,5 +11,11 @@ void main() {
 }
 """;
 
-  // Erstelle eine Instanz der Klasse IP basierend auf dem JSON-String json13
+  Map<String, dynamic> jsonMap = jsonDecode(json13);
+
+  IP ip = IP(
+    ip: jsonMap['ip'],
+  );
+
+  print(ip);
 }
